@@ -1,0 +1,28 @@
+
+@relation Association
+
+@attribute AppleTV {t,f}
+@attribute PhliphsHue {t,f}
+@attribute LiFxLight {t,f}
+
+@data
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 t}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 t}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 f}
+{0 t, 1 t, 2 t}
