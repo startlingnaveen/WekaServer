@@ -24,7 +24,7 @@ public class LockEventProcessor implements EventProcessor{
 		//Predict only if the lock is unlocked
 		if(event.getStatus().equalsIgnoreCase("unlocked")) {
 			LockEventDetector detector = new LockEventDetector();
-			Boolean isEvenUnUsual = detector.isEventUnusual(event.getTimeStamp());
+			Boolean isEvenUnUsual = detector.isEventUnusual(event.getUpdated());
 			logger.info("Event => isEvenUnUsual: " + isEvenUnUsual);
 			
 			if(isEvenUnUsual) {

@@ -27,7 +27,7 @@ public class EventController {
 	public @ResponseBody String event(@RequestBody Event event) {
 		logger.info("###################################################");
 		logger.info("Event => deviceType: " + event.getWhatami());
-		logger.info("Event => deviceType: " + event.getTimeStamp());
+		logger.info("Event => deviceType: " + event.getUpdated());
 		logger.info("###################################################");
 		String device = event.getWhatami();
 		String deviceType =  device.split("/")[device.split("/").length-1];
