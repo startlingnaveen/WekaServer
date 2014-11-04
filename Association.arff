@@ -2,7 +2,7 @@
 @relation Association
 
 @attribute AppleTV {t,f}
-@attribute PhliphsHue {t,f}
+@attribute PhilipsHue {t,f}
 @attribute LiFxLight {t,f}
 
 @data
