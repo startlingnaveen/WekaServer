@@ -11,13 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
 
 import com.tavant.machinelearning.model.Event;
 import com.tavant.machinelearning.model.Rule;
 
-public class Executor {
+public class AutoRuleDetector {
 	HashMap<Integer, HashMap<Integer, Integer>> mHashMapWeekend = new HashMap<Integer, HashMap<Integer, Integer>>();
 	HashMap<Integer, HashMap<Integer, Integer>> mHashMapWeekday = new HashMap<Integer, HashMap<Integer, Integer>>();
 	String[] deviceStates = {"locked","unlocked"};
@@ -150,11 +148,11 @@ public class Executor {
 		Rule rule = new Rule();
 		String dayIdentifier = e.getDayIdentifier();
 		if(dayIdentifier.equalsIgnoreCase("WEEKDAY")){
-			//rule = findOutRule(e, mHashMapWeekday, 5);
+			rule = findOutRule(e, mHashMapWeekday, 5);
 		}
 			
 		else if(dayIdentifier.equalsIgnoreCase("WEEKEND")){
-			//rule = findOutRule(e, mHashMapWeekend, 2);
+			rule = findOutRule(e, mHashMapWeekend, 2);
 		}
 			
 		
@@ -162,25 +160,32 @@ public class Executor {
 	}
 	
 	// Helper method for returnRule
-	/*
 	Rule findOutRule(Event e, HashMap<Integer, HashMap<Integer, Integer>> mapToBeUsed, int frequency){
-		int hours = e.getTime().get(Calendar.HOUR_OF_DAY);
-		int min = e.getTime().get(Calendar.MINUTE);
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(e.getUpdated());
+		int hours = cal.get(Calendar.HOUR_OF_DAY);
+		int min =  cal.get(Calendar.MINUTE);
 		int minutes = roundOffVal(min);
 		Rule rule = new Rule();
 		if(mapToBeUsed!=null && mapToBeUsed.containsKey(hours)){
 			HashMap<Integer, Integer> currMap = mapToBeUsed.get(hours);
 			if(currMap.containsKey(minutes)){
 				if(currMap.get(minutes)==frequency)
-					rule = new Rule("Gate","Locked");	
+					//rule = new Rule("Gate","Locked");	
+					rule.setTargetDeviceName("Gate");
+					rule.setTargetEvent("Locked");
 			}
 			else
-				rule = new Rule("Gate","Unlocked");
+				//rule = new Rule("Gate","Unlocked");
+				rule.setTargetDeviceName("Gate");
+				rule.setTargetEvent("Unlocked");
 		}
 		else
-			rule = new Rule("Gate","Unlocked");
+			//rule = new Rule("Gate","Unlocked");
+			rule.setTargetDeviceName("Gate");
+			rule.setTargetEvent("Unlocked");
 		return rule;
-	}*/
+	}
 	
 	
 }
