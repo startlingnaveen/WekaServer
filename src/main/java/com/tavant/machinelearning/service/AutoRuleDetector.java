@@ -36,7 +36,7 @@ public class AutoRuleDetector {
 	
 	// This method reads data from the CSV and populates the Hashmap instance variables.
 	public void run() {
-		String csvFile = "assets/mockBulbData.csv";
+		String csvFile = "/Users/Naveen/Documents/workspace-sts-3.6.1.RELEASE/WekaServer/mockBulbData.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
@@ -170,7 +170,7 @@ public class AutoRuleDetector {
 		if(mapToBeUsed!=null && mapToBeUsed.containsKey(hours)){
 			HashMap<Integer, Integer> currMap = mapToBeUsed.get(hours);
 			if(currMap.containsKey(minutes)){
-				if(currMap.get(minutes)==frequency)
+				if(currMap.get(minutes) == frequency)
 					//rule = new Rule("Gate","Locked");	
 					rule.setTargetDeviceName("Gate");
 					rule.setTargetEvent("Locked");
