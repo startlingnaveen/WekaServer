@@ -5,11 +5,9 @@
 
 package com.tavant.machinelearning.notifications;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.SecureRandom;
@@ -23,13 +21,14 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.json.JSONObject;
 
-
+//Device Token iPhone 6plus - c23cc708822b7bb56c4c37b636f418c9979587f8452975d2983c27beb47a9241
+//iPhone 5s Wapo - 73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155
 public class ApnsCommunication {
-
 	public static void main(String[] args) {
-		ApnsCommunication  mApnsCommunication    =  new ApnsCommunication("e08455ece833084908a4b3948836322db6cfe93869e589c723be2449a1d54024", 1, "Your front door is unlocked, at unusual time, please check!",5);
+		ApnsCommunication  mApnsCommunication    =  new ApnsCommunication("73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155", 1, "Your front door is unlocked, at unusual time, please check!",1);
 		System.out.println("Done ########################################");
 	}
+
     public ApnsCommunication(String deviceToken,int type ,String msgbody,int badge) {
        // this.sentNotification(deviceToken, requesterName, buddyName,msgbody,badge,otheruserId,eventId);
         
@@ -69,38 +68,38 @@ public class ApnsCommunication {
             
             
              //Incoming
-            BufferedReader in           =   new BufferedReader
-             (new InputStreamReader(socket.getInputStream()));
-            StringBuilder buffer = new StringBuilder();
-    		
-    			char[] tmp = new char[1024];
-    			String userinput="";
-    			while ((userinput = in.readLine()) != null) {
-    				System.out.println("userinput"+userinput);
-    			}
-    	
+//            BufferedReader in           =   new BufferedReader
+//             (new InputStreamReader(socket.getInputStream()));
+//            StringBuilder buffer = new StringBuilder();
+            
+//                char[] tmp = new char[1024];
+//                String userinput="";
+//                while ((userinput = in.readLine()) != null) {
+//                    System.out.println("userinput"+userinput);
+//                }
         
             outputStream.close();
-            in.close();
+//            in.close();
             socket.close();
             mFileInputStream.close();
-            
+          //  return;
             //System.out.print("response"+buffer);
       }catch(Exception e){
           //socket.close();
-    	  e.printStackTrace();
+          e.printStackTrace();
           System.out.print(""+e.getMessage()+""+e.getStackTrace()+" "+e.getCause());
       }
     }
     static HandshakeCompletedListener mHandshakeCompletedListener = new HandshakeCompletedListener()
     {
-    	@Override
+        @Override
         public void handshakeCompleted(HandshakeCompletedEvent arg0) {
             try{
-            	System.out.print("Handshake  success");
+                System.out.print("Handshake  success");
             }catch(Exception e){
                  System.out.print("Handshake  Exception");
             }
+          //  return;
         }
      };
     public static JSONObject getPayLoad(int type ,String msgbody,int badge){
@@ -123,4 +122,4 @@ public class ApnsCommunication {
       }
   }
       
-}
+  }

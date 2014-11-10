@@ -8,5 +8,5 @@ package com.tavant.machinelearning.notifications;
 public class GlobalData {
 
 	public static String host = "gateway.sandbox.push.apple.com";
-	public static String Certificate = "/Users/Naveen/Documents/workspace-sts-3.6.1.RELEASE/WekaServer/HomeAutomationPushKey.p12";
+	public static String Certificate = "/Users/Naveen/Documents/workspace-sts-3.6.1.RELEASE/WekaServer/HomeProjectNewKey.p12";
 }

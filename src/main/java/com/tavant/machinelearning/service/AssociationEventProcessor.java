@@ -31,7 +31,7 @@ public class AssociationEventProcessor implements EventProcessor {
 			logger.info("Event name: " + event.getName());
 			logger.info("###################################################");
 			
-			if(event.getName().equalsIgnoreCase(rule.getSourceDeviceName())) {
+			if(event.getName().equalsIgnoreCase("Lux Lamp 1") && event.getStatus().equalsIgnoreCase("on")) {
 				logger.info("Foud rule!!!" );
 		        
 		        sendPost();
@@ -45,7 +45,7 @@ public class AssociationEventProcessor implements EventProcessor {
 	
 	private void sendPost() throws Exception {
 		 
-		String url = "http://192.168.2.10:7798/perform/play/Apple%20TV";
+		String url = "http://192.168.2.10:7798/perform/on/Lux%20Lamp";
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 	 
@@ -54,7 +54,7 @@ public class AssociationEventProcessor implements EventProcessor {
 	 
 	 
 		HttpResponse response = client.execute(post);
-		System.out.println("Response Code : " 
+		logger.info("Response Code : " 
 	                + response.getStatusLine().getStatusCode());
  
 	}

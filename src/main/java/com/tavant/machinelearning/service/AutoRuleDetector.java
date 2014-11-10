@@ -146,7 +146,7 @@ public class AutoRuleDetector {
 	Rule returnRule(Event e){
 		
 		Rule rule = new Rule();
-		String dayIdentifier = e.getDayIdentifier();
+		String dayIdentifier = "WEEKDAY";//e.getDayIdentifier();
 		if(dayIdentifier.equalsIgnoreCase("WEEKDAY")){
 			rule = findOutRule(e, mHashMapWeekday, 5);
 		}
