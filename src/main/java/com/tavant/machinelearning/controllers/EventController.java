@@ -34,17 +34,17 @@ public class EventController {
 		String device = event.getWhatami();
 		String deviceType =  device.split("/")[device.split("/").length-1];
 		
-		if(event.getName().equalsIgnoreCase("Lux Lamp")) { //deviceType.equalsIgnoreCase("lock")
+		if(deviceType.equalsIgnoreCase("lock")) { 
 			LockEventProcessor lockEventProcessor = new LockEventProcessor();
 			lockEventProcessor.processEvent(event);
 		}
 		
-		if(event.getName().equalsIgnoreCase("Lux Lamp 1")) {
+		if(deviceType.equalsIgnoreCase("bulb")) {
 			AssociationEventProcessor processor = new AssociationEventProcessor();
 			processor.processEvent(event);
 		}
 		
-		if(event.getName().equalsIgnoreCase("Gate") && event.getStatus().equalsIgnoreCase("UnLocked")) {
+		if(deviceType.equalsIgnoreCase("Gate") && event.getStatus().equalsIgnoreCase("UnLocked")) {
 			AutoRuleProcessor processor = new AutoRuleProcessor();
 			processor.processEvent(event);
 		}

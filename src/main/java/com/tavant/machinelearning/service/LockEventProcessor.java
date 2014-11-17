@@ -22,7 +22,7 @@ public class LockEventProcessor implements EventProcessor{
 		/* First save the data to DB and then check for usual/unusual event */
 		
 		//Predict only if the lock is unlocked
-		if(event.getStatus().equalsIgnoreCase("on")) {
+		if(event.getStatus().equalsIgnoreCase("unlocked")) {
 			LockEventDetector detector = new LockEventDetector();
 			Boolean isEvenUnUsual = detector.isEventUnusual(event.getUpdated());
 			logger.info("Event => isEvenUnUsual: " + isEvenUnUsual);
@@ -30,8 +30,9 @@ public class LockEventProcessor implements EventProcessor{
 			if(isEvenUnUsual) {
 				//67945533470607d89c6319d88b34f5ed0ddf767a45528234f54f1f40194fcf8c
 				//7eee7b8153d213468e6ec3ea6abb2638f140f764
+				//73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155
 		
-				ApnsCommunication  mApnsCommunication    =  new ApnsCommunication("e08455ece833084908a4b3948836322db6cfe93869e589c723be2449a1d54024", 1, "Your front door is unlocked, at unusual time, please check!",5);
+				ApnsCommunication  mApnsCommunication    =  new ApnsCommunication("73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155", 1, "Your front door is unlocked, at unusual time, please check!",5);
 			}
 		}else {
 			logger.info("Event => isEvenUnUsual: false");

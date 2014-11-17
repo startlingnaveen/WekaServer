@@ -45,7 +45,7 @@ public class AssociationEventProcessor implements EventProcessor {
 	
 	private void sendPost() throws Exception {
 		 
-		String url = "http://192.168.2.10:7798/perform/on/Lux%20Lamp";
+		String url = "http://192.168.2.10:7798/perform/play/Apple%20TV";
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 	 
