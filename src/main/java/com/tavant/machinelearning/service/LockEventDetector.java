@@ -2,12 +2,16 @@ package com.tavant.machinelearning.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.tavant.machinelearning.notifications.ApnsCommunication;
 
 import weka.classifiers.evaluation.NumericPrediction;
 import weka.classifiers.functions.GaussianProcesses;
@@ -113,7 +117,25 @@ public class LockEventDetector {
 	
 	public static void main(String[] args) {
 		LockEventDetector detector = new LockEventDetector();
-		System.out.println(detector.isEventUnusual(new Date()));
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date formattedDate = null;
+		try {
+			formattedDate = formatter.parse("2014-11-19 11:39:11");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Boolean isEvenUnUsual = detector.isEventUnusual(formattedDate);
+		
+		System.out.println("isEvenUnUsual :" + isEvenUnUsual);
+		
+		if(isEvenUnUsual) {
+			//67945533470607d89c6319d88b34f5ed0ddf767a45528234f54f1f40194fcf8c
+			//7eee7b8153d213468e6ec3ea6abb2638f140f764
+			//73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155
+	
+			ApnsCommunication  mApnsCommunication    =  new ApnsCommunication("73d110de1034a6394327a5ea5082b2739f909176b0a20646a5f648c3fbb9f155", 1, "Your front door is unlocked, at unusual time, please check!",5);
+		}
 		
 	}
 }

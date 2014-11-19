@@ -19,15 +19,19 @@ public class AutoRuleProcessor implements EventProcessor{
 		AutoRuleDetector detector = new AutoRuleDetector();
 		Rule rule = detector.returnRule(event);
 		
-		//Check if the gate should be locked
-		logger.info("Automation Rule Foud !!!" );
-        
-        try {
-			sendPost();	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!rule.getTargetEvent().equalsIgnoreCase(event.getStatus())) {
+			//Check if the gate should be locked
+			logger.info("Automation Rule Foud !!!" );
+			try {
+				sendPost();	
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+        
+        
 	}
 
 	private void sendPost() throws Exception {

@@ -19,23 +19,28 @@ public class AutoRuleDetector {
 	HashMap<Integer, HashMap<Integer, Integer>> mHashMapWeekend = new HashMap<Integer, HashMap<Integer, Integer>>();
 	HashMap<Integer, HashMap<Integer, Integer>> mHashMapWeekday = new HashMap<Integer, HashMap<Integer, Integer>>();
 	String[] deviceStates = {"locked","unlocked"};
-//	public static void main(String[] args) {
-//		boolean a = true;
-//		Executor obj = new Executor();
-//		obj.run();
-////		while(a){
-////			System.out.println("Enter the device, state and day identifier separated by spaces");
-////			Scanner scan= new Scanner(System.in);
-////			String text= scan.nextLine();
-////		    System.out.println(obj.operateDevice("a","b","weekday").get(1));
-////		}
-//		Calendar cal = new GregorianCalendar(2014, 10, 31, 19, 14);
-//		Event ev = new Event("GATE", "UNLOCKED", "WEEKDAY", cal);
-//		System.out.println("YEs Got it..."+obj.returnRule(ev).getState());
-//	  }
+
+	public static void main(String[] args) {
+		AutoRuleDetector detector = new AutoRuleDetector();
+		Event sampleEvent = new Event();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date formattedDate = null;
+		try {
+			formattedDate = formatter.parse("2014-11-19 16:09:11");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sampleEvent.setUpdated(formattedDate);
+		Rule rule = detector.returnRule(sampleEvent);
+		if(rule != null) {
+			System.out.println(rule.getTargetDeviceName());
+			System.out.println(rule.getTargetEvent());
+		}
+	}
 	
 	// This method reads data from the CSV and populates the Hashmap instance variables.
-	public void run() {
+	public void processData() {
 		String csvFile = "/Users/Naveen/Documents/workspace-sts-3.6.1.RELEASE/WekaServer/mockBulbData.csv";
 		BufferedReader br = null;
 		String line = "";
@@ -144,7 +149,7 @@ public class AutoRuleDetector {
 	
 	// Method That returns the rule for a device based on the time specified.
 	Rule returnRule(Event e){
-		
+		this.processData();
 		Rule rule = new Rule();
 		String dayIdentifier = "WEEKDAY";//e.getDayIdentifier();
 		if(dayIdentifier.equalsIgnoreCase("WEEKDAY")){
@@ -160,30 +165,25 @@ public class AutoRuleDetector {
 	}
 	
 	// Helper method for returnRule
-	Rule findOutRule(Event e, HashMap<Integer, HashMap<Integer, Integer>> mapToBeUsed, int frequency){
+	Rule findOutRule(Event e,
+			HashMap<Integer, HashMap<Integer, Integer>> mapToBeUsed,
+			int frequency) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(e.getUpdated());
 		int hours = cal.get(Calendar.HOUR_OF_DAY);
-		int min =  cal.get(Calendar.MINUTE);
+		int min = cal.get(Calendar.MINUTE);
 		int minutes = roundOffVal(min);
 		Rule rule = new Rule();
-		if(mapToBeUsed!=null && mapToBeUsed.containsKey(hours)){
+		rule.setTargetDeviceName("Gate");
+		rule.setTargetEvent("Unlocked");
+		if (mapToBeUsed != null && mapToBeUsed.containsKey(hours)) {
 			HashMap<Integer, Integer> currMap = mapToBeUsed.get(hours);
-			if(currMap.containsKey(minutes)){
-				if(currMap.get(minutes) == frequency)
-					//rule = new Rule("Gate","Locked");	
-					rule.setTargetDeviceName("Gate");
-					rule.setTargetEvent("Locked");
-			}
-			else
-				//rule = new Rule("Gate","Unlocked");
+			if (currMap.containsKey(minutes) && (currMap.get(minutes) == frequency)) {
 				rule.setTargetDeviceName("Gate");
-				rule.setTargetEvent("Unlocked");
-		}
-		else
-			//rule = new Rule("Gate","Unlocked");
-			rule.setTargetDeviceName("Gate");
-			rule.setTargetEvent("Unlocked");
+				rule.setTargetEvent("Locked");
+			}
+		} 
+
 		return rule;
 	}
 	
